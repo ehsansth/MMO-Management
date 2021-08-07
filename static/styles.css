@@ -1,0 +1,128 @@
+nav .navbar-brand
+{
+    /* size for brand */
+    font-size: xx-large;
+    font: Helvetica;
+    font-weight: 600;
+}
+
+/* Colors for brand */
+nav .navbar-brand .blue
+{
+    color: #ffffff;
+    text-shadow: 1px 1px #000000;
+
+}
+nav .navbar-brand .green
+{
+    color: #ffffff;
+    text-shadow: 1px 1px #000000;
+}
+.navbar-dark .navbar-nav .nav-link
+{
+    color: #fff;
+    text-shadow: 1px 1px #000000;
+}
+
+main .form-control
+{
+    /* Center form controls */
+    display: inline-block;
+
+    /* Override Bootstrap's 100% width for form controls */
+    width: auto;
+}
+
+main
+{
+    /* Scroll horizontally as needed */
+    overflow-x: auto;
+
+    /* Center contents */
+    text-align: center;
+}
+
+main img
+{
+    /* Constrain images on small screens */
+    max-width: 100%;
+}
+#quote
+{
+    text-align: inherit;
+}
+table {
+    background-color: transparent;
+    margin-bottom: 1rem;
+    width: 100%;
+}
+
+table th {
+    padding: 0.75rem;
+    vertical-align: middle;
+    text-align: center;
+}
+table td {
+    padding: 0.75rem;
+    vertical-align: middle;
+    text-align: left;
+    font-weight: 500;
+}
+
+tbody tr {
+    background-color: rgb(179, 208, 255, 0.3)
+}
+.section {
+    padding-bottom: 1rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    padding-top: 0.5rem;
+}
+
+.section tr:hover {
+    background-color: #FFFF99;
+    transition: color 2s ease-in-out, background-color 0.15s ease-in-out;
+}
+.author {
+    background-color: red;
+    color: white;
+    padding: 0.5rem 0.5rem;
+}
+.r {
+    background-color: green;
+    color: white;
+    padding: 0.5rem 0.5rem;
+}
+/* Style buttons */
+.btnd {
+  background-color: DodgerBlue;
+  border: none;
+  color: white;
+  padding: 12px 30px;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+/* Darker background on mouse-over */
+.btnd:hover {
+  background-color: RoyalBlue;
+}
+.record {
+    text-align: center;
+}
+
+.pasttab th {
+    text-align: left;
+}
+.inlink {
+  color: #EE4B2B;
+}
+.inlink:hover {
+  color: #8B0000;
+}
+.inlink2 {
+  color: #00008B;
+}
+.card {
+    display:inline-block;
+}

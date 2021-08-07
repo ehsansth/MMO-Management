@@ -1,0 +1,55 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Past
+{% endblock %}
+
+{% block main %}
+    <form action="/past" method="post">
+        <div class="form-group">
+            <label for="event_name">Select Event:<br>(for in-depth details)</label><br>
+            <select id="event" class="form-control" name="event" required>
+                <option disabled selected value="">Event</option>
+                    {% for vent in vent %}
+                        <option value="{{ vent.event }}">{{ vent.event }}</option>
+                    {% endfor %}
+            </select>
+        </div>
+        <button class="btn btn-primary" type="submit">Search</button>
+    </form>
+    <hr>
+    <div class="section">
+        <table class="pasttab">
+            <thead>
+                <tr>
+                    <h2>Past Records' Overview</h2>
+                </tr>
+                <tr>
+                    <th>No.</th>
+                    <th>Date</th>
+                    <th>Event</th>
+                    <th>(৳)Total Expenses</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- TODO: Loop through the database entries to display them in this table -->
+                    {% for events in events %}
+                            <tr>
+                                <td>{{ events.id }}</td>
+                                <td>{{ events.date }}</td>
+                                <td>{{ events.event }}</td>
+                                <td>{{ events.total }}</td>
+                            </tr>
+                    {% endfor %}
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        {% if total %}
+                        <td><b>{{ total }}</b></td>
+                        {% endif %}
+                    </tr>
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

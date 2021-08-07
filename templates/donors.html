@@ -1,0 +1,71 @@
+{% extends "layout.html" %}
+{% block title %}
+    Donors and Funds
+{% endblock %}
+
+{% block main %}
+    <form action="/donors" method="post" enctype=multipart/form-data>
+        <div class="form-group">
+           <label for="donor name">Donor's Name/Phone Number:</label><br>
+           <input autocomplete="off" autofocus class="form-control" name="name" placeholder="Name/No." type="text" required>
+        </div>
+        <div class="form-group">
+            <label for="donation source">Donation Source(Member or Others):</label><br>
+            <input class="form-control" autocomplete="off" name="reference" placeholder="Reference" type="text" required>
+        </div>
+        <div class="form-group">
+            <label for="amount">Amount:</label><br>
+            <input class="form-control" autocomplete="off" name="amount" placeholder="Amount" type="number" min="1" required>
+        </div>
+        <div class="form-group">
+            <label for="donation date">Date:</label><br>
+            <input class="form-control" autocomplete="off" name="date" placeholder="Date" type="date" required>
+        </div>
+        <div class="form-group">
+            <label for="timage">Transaction Image(if any):</label><br>
+            <input type=file name=file>
+        </div>
+        <button class="btn btn-primary" type="submit">Record</button>
+    </form>
+    <hr>
+    <div class="section">
+        <table>
+            <thead>
+                <tr>
+                    <h4>All Donations</h4>
+                </tr>
+                <tr>
+                    <b><h5 style="text-align:right">Cash:</b> <b class="cash" style="color:green">{{ cash }}</b></h5>
+                </tr>
+                <tr>
+                    <th>No</th>
+                    <th>Date</th>
+                    <th>Name/Phone No:</th>
+                    <th>Reference</th>
+                    <th>(৳)Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- TODO: Loop through the database entries to display them in this table -->
+                    {% for rows in rows %}
+                            <tr>
+                                <td>{{ rows.don_id }}</td>
+                                <td>{{ rows.date }}</td>
+                                <td>{{ rows.name }}</td>
+                                <td>{{ rows.reference }}</td>
+                                <td>{{ rows.amount }}</td>
+                            </tr>
+                    {% endfor %}
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        {% if total %}
+                        <td><b>{{ total }}</b></td>
+                        {% endif %}
+                    </tr>
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

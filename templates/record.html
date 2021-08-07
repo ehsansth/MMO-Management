@@ -1,0 +1,139 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Record
+{% endblock %}
+
+{% block main %}
+    <script>
+        var list1 = [];
+        var list2 = [];
+	    var list3 = [];
+		var list4 = [];
+        var list5 = [];
+
+        var n = 3;
+		var x = 0;
+
+        $(document).ready(function() {
+
+	        $('form').on('submit', function(event) {
+	        	$.ajax({
+	        		data : {
+	        			date : $('#date').val(),
+	        			event : $('#event').val(),
+	        			item : $('#item').val(),
+	        			qty : $('#qty').val(),
+	        			cost : $('#cost').val()
+	        		},
+		        	type : 'POST',
+		        	url : '/record'
+	        	})
+		        .done(function(data) {
+
+                    var AddRown = document.getElementById('show');
+			        var NewRow = AddRown.insertRow(n);
+
+			        list1[x] = data.no;
+			        list2[x] = data.item;
+			        list3[x] = data.qty;
+			        list4[x] = data.cost;
+			        list5[x] = data.amount;
+
+			        var cel1 = NewRow.insertCell(0);
+		        	var cel2 = NewRow.insertCell(1);
+		        	var cel3 = NewRow.insertCell(2);
+		        	var cel4 = NewRow.insertCell(3);
+		        	var cel5 = NewRow.insertCell(4);
+
+		        	cel1.innerHTML = list1[x];
+			        cel2.innerHTML = list2[x];
+		        	cel3.innerHTML = list3[x];
+			        cel4.innerHTML = list4[x];
+		        	cel5.innerHTML = list5[x];
+
+                    document.querySelector(".total").innerHTML = 'Total: ';
+		        	document.querySelector(".total").innerHTML += data.total;
+		        	document.querySelector(".cash").innerHTML = data.cash;
+
+		        	document.getElementById('item').value = '';
+                    document.getElementById('qty').value = '';
+                    document.getElementById('cost').value = '';
+			        n++;
+			        x++;
+		        });
+		        event.preventDefault();
+	        });
+        });
+    </script>
+    <form action="/record" method="post">
+        <div class="form-row">
+            <div style="padding:0.5" class="col">
+                <label for="date">Date:</label><br>
+                <input id="date" class="form-control" autofocus name="date" placeholder="Date" required type="date">
+            </div>
+            <div class="alert alert-info" role="alert">
+                    <b><a href="/" target="_blank">Click here</a></b> to create a new event (if not already created).
+            </div>
+            <div class="col">
+                <label for="event_name">Select Event:</label><br>
+                <select id="event" class="form-control" name="event" required>
+                    <option disabled selected value="">Event</option>
+                        {% for vent in vent %}
+                            <option value="{{ vent.event }}">{{ vent.event }}</option>
+                        {% endfor %}
+                </select>
+            </div>
+        </div>
+        <br>
+        <div class="form-group">
+            <table>
+                <thead>
+                    <tr>
+                        <h4>Record Expenses</h4>
+                    </tr>
+                </thead>
+                <tbody>
+                    <th>Item</th>
+                    <tr>
+                        <td class="record"><input autocomplete="off" required id="item" name="item" placeholder="Item" type="text"></td>
+                    </tr>
+                    <th>Qty</th>
+                    <tr>
+                        <td class="record"><input autocomplete="off" required id="qty" name="qty" placeholder="Qty" type="number"></td>
+                    </tr>
+                    <th>(৳)Cost</th>
+                    <tr>
+                        <td class="record"><input autocomplete="off" required id="cost"  name="cost" placeholder="৳" type="number"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <br>
+        <button class="btn btn-primary" type="submit">Enter</button>
+    </form>
+    <hr>
+    <div class="section">
+
+        <table id="show">
+            <thead>
+                <tr>
+                    <h4>Expenses</h4>
+                </tr>
+                <tr>
+                    <b><h5 style="text-align:right">Cash:</b> <b class="cash" style="color:green">{{ cash }}</b></h5>
+                </tr>
+                <tr>
+                    <th>No:</th>
+                    <th>Item:</th>
+                    <th>Qty:</th>
+                    <th>(৳)Cost</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+        </table>
+        <h6 class="total" style="text-align:right">Total: </h6>
+    </div>
+    <button class="btn btn-success" type="button" onClick="window.location.href=window.location.href">Done</button>
+
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Member Info
+{% endblock %}
+
+{% block main %}
+    <h3>Member Information</h3>
+        <p style="text-align:right;">
+            <b>Member ID: {{ mid.Member_ID }}</b><br>
+            <b>Unique Member Identifier: {{ mid.Unique_Member_Identifier }}</b>
+        </p>
+        <h4>
+            <p style="text-align:left;">
+                <b>Name: </b>{{ mid.Full_Name }}<br><br>
+                <b>School: </b>{{ mid.School }}<br><br>
+                <b>Address: </b>{{ mid.Address }}<br><br>
+                <b>Contact No: </b>{{ mid.Phone_Number }}<br><br>
+                <b>Email Address: </b>{{ mid.Email_Address }}<br><br>
+                <b>Membership Date: </b>{{ mid.Timestamp }}
+            </p>
+        </h4>
+        <br>
+        <h6 style="text-align:center;">Photo & Signature: <a href="{{ mid.Photo }}" target="_blank">{{ mid.Photo }}</a></h6>
+{% endblock %}

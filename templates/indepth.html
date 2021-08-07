@@ -1,0 +1,46 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Past
+{% endblock %}
+
+{% block main %}
+    <div class="section">
+        <table class="pasttab">
+            <thead>
+                <tr>
+                    <h2>{{ event }}</h2>
+                    <b><h6>{{ date }}</h6></b>
+                </tr>
+                <tr>
+                    <th>No:</th>
+                    <th>Item:</th>
+                    <th>Qty:</th>
+                    <th>(৳)Cost</th>
+                    <th>(৳)Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- TODO: Loop through the database entries to display them in this table -->
+                    {% for rows in rows %}
+                            <tr>
+                                <td>{{ rows.id }}</td>
+                                <td>{{ rows.item }}</td>
+                                <td>{{ rows.qty }}</td>
+                                <td>{{ rows.cost }}</td>
+                                <td>{{ rows.amount }}</td>
+                            </tr>
+                    {% endfor %}
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        {% if total %}
+                        <td><b>{{ total }}</b></td>
+                        {% endif %}
+                    </tr>
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

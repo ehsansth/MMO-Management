@@ -1,0 +1,64 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Home
+{% endblock %}
+
+{% block main %}
+    <div class="container">
+        <h2>Welcome, {{ name }}</h2>
+    </div>
+    <hr>
+    <h3>Create A New Event</h3>
+    <br>
+    <form action="/" method="post">
+        <div class="alert alert-info" role="alert">
+            If the event already exists, click <a class="inlink" href='/record'><b>here</b></a> to record expenses or <a class="inlink2" href='/past'><b>here</b></a> to view past records
+        </div>
+        <div class="form-group">
+            <label for="event">Event Name:</label><br>
+            <input autocomplete="off" autofocus class="form-control" name="event" placeholder="Event Name"
+            type="text" required>
+        </div>
+        <div class="form-group">
+            <label for="date">Date:</label><br>
+            <input autocomplete="off" class="form-control" name="date" placeholder="Date" required type="date">
+        </div>
+        <button class="btn btn-primary" type="submit">Create</button>
+    </form>
+    <hr>
+    <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="static/member.png" alt="Member Page">
+        <div class="card-body">
+            <h5 class="card-title">Members</h5>
+            <p class="card-text">Click the button below to view an overview of the members or query all the info available for a specific member.</p>
+            <a href="/members" class="btn btn-primary">Member Info</a>
+        </div>
+    </div>
+    &nbsp
+    <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="static/past.png" alt="Past Records">
+        <div class="card-body">
+            <h5 class="card-title">Past Event Records</h5>
+            <p class="card-text">Click the button to view an overview of past event records and in-depth records of each event.</p>
+            <a href="/past" class="btn btn-primary">Past Records</a>
+        </div>
+    </div>&nbsp
+    <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="static/record.png" alt="Record Expenses">
+        <div class="card-body">
+            <h5 class="card-title">Record Event Expenses</h5>
+            <p class="card-text">Click the button to record event expenses that can be viewed later on in the past records page.</p>
+            <a href="/record" class="btn btn-primary">Record Expenses</a>
+        </div>
+    </div><br><br>
+    <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="static/donors.png" alt="Record Donations">
+        <div class="card-body">
+            <h5 class="card-title">Record Donations</h5>
+            <p class="card-text">Click the button to record donations.</p>
+            <a href="/donors" class="btn btn-primary">Record Donations</a>
+        </div>
+    </div>
+
+{% endblock %}
