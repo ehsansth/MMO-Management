@@ -184,14 +184,14 @@ def members():
         else:
             fid = str(request.form.get("id"))
 
-            data = db.execute('SELECT "Member_ID" FROM members WHERE "Member_ID" = ?', fid)
+            data = db.execute('SELECT member_id FROM members WHERE member_id = ?', fid)
             if len(data) != 0:
                 mid = db.execute('SELECT * FROM members WHERE "Member_ID" = ?', fid)
                 return render_template("memberinfo.html", mid=mid[0])
             else:
                 return apology("No match")
     else:
-        rows = db.execute('SELECT "Full_Name","School","Member_ID" FROM members')
+        rows = db.execute('SELECT full_name, school, member_id FROM members')
         return render_template("members.html", rows=rows)
 
 
@@ -203,7 +203,7 @@ def register():
         if not request.form.get("username") or not request.form.get("password") or not request.form.get("confirmation") or not request.form.get("umi"):
             return apology("please fill all fields")
         # Query database for username
-        umi = db.execute('SELECT "Unique_Member_Identifier" FROM members WHERE "Unique_Member_Identifier" = ?', request.form.get("umi"))
+        umi = db.execute('SELECT unique_member_identifier FROM members WHERE unique_member_identifier = ?', request.form.get("umi"))
         if len(umi) != 1:
             return apology("You are not authorized to register!")
         rows = db.execute("SELECT * FROM users WHERE username = ?", request.form.get("username"))
