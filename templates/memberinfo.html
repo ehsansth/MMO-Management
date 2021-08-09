@@ -7,19 +7,19 @@
 {% block main %}
     <h3>Member Information</h3>
         <p style="text-align:right;">
-            <b>Member ID: {{ mid.Member_ID }}</b><br>
-            <b>Unique Member Identifier: {{ mid.Unique_Member_Identifier }}</b>
+            <b>Member ID: {{ mid.member_id }}</b><br>
+            <b>Unique Member Identifier: {{ mid.unique_member_identifier }}</b>
         </p>
         <h4>
             <p style="text-align:left;">
-                <b>Name: </b>{{ mid.Full_Name }}<br><br>
-                <b>School: </b>{{ mid.School }}<br><br>
-                <b>Address: </b>{{ mid.Address }}<br><br>
-                <b>Contact No: </b>{{ mid.Phone_Number }}<br><br>
-                <b>Email Address: </b>{{ mid.Email_Address }}<br><br>
-                <b>Membership Date: </b>{{ mid.Timestamp }}
+                <b>Name: </b>{{ mid.full_name }}<br><br>
+                <b>School: </b>{{ mid.school }}<br><br>
+                <b>Address: </b>{{ mid.address }}<br><br>
+                <b>Contact No: </b>{{ mid.phone_number }}<br><br>
+                <b>Email Address: </b>{{ mid.email_address }}<br><br>
+                <b>Membership Date: </b>{{ mid.timestamp }}
             </p>
         </h4>
         <br>
-        <h6 style="text-align:center;">Photo & Signature: <a href="{{ mid.Photo }}" target="_blank">{{ mid.Photo }}</a></h6>
+        <h6 style="text-align:center;">Photo & Signature: <a href="{{ mid.photo }}" target="_blank">{{ mid.photo }}</a></h6>
 {% endblock %}
