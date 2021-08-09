@@ -186,7 +186,7 @@ def members():
 
             data = db.execute('SELECT member_id FROM members WHERE member_id = ?', fid)
             if len(data) != 0:
-                mid = db.execute('SELECT * FROM members WHERE "Member_ID" = ?', fid)
+                mid = db.execute('SELECT * FROM members WHERE member_id = ?', fid)
                 return render_template("memberinfo.html", mid=mid[0])
             else:
                 return apology("No match")
