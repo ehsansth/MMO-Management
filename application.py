@@ -195,34 +195,11 @@ def members():
         return render_template("members.html", rows=rows)
 
 
-@app.route("/register", methods=["GET", "POST"])
+@app.route("/register", methods=["GET"])
 def register():
     """Register user"""
-    if request.method == "POST":
-        # Check if any username was entered
-        if not request.form.get("username") or not request.form.get("password") or not request.form.get("confirmation") or not request.form.get("umi"):
-            return apology("please fill all fields")
-        # Query database for username
-        umi = db.execute('SELECT unique_member_identifier FROM members WHERE unique_member_identifier = ?', request.form.get("umi"))
-        if len(umi) != 1:
-            return apology("You are not authorized to register!")
-        rows = db.execute("SELECT * FROM users WHERE username = ?", request.form.get("username"))
-        # Check if username already exists
-        if len(rows) != 0:
-            return apology("Sorry, the username is already taken")
-        elif request.form.get("password") != request.form.get("confirmation"):
-            return apology("Sorry, your passswords didn't match")
-        else:
-            phash = generate_password_hash(request.form.get("password"), method='pbkdf2:sha256', salt_length=16)
-            db.execute("INSERT INTO users (username, hash) VALUES (?, ?)", request.form.get("username"), phash)
-        # Redirect user to index
-        rows = db.execute("SELECT * FROM users WHERE username = ?", request.form.get("username"))
-        session["user_id"] = rows[0]["id"]
-        flash('Registered!')
-        return redirect("/")
+    return render_template("inprogress.html")
 
-    else:
-        return render_template("register.html")
 
 
 @app.route("/donors", methods=["GET", "POST"])
