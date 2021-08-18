@@ -10,6 +10,15 @@
            <input autocomplete="off" autofocus class="form-control" name="name" placeholder="Name/No." type="text" required>
         </div>
         <div class="form-group">
+           <label for="event name">Event:</label><br>
+           <select id="event" class="form-control" name="event" required>
+                <option disabled selected value="">Event</option>
+                {% for vent in vent %}
+                    <option value="{{ vent.event }}">{{ vent.event }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
             <label for="donation source">Donation Source(Member or Others):</label><br>
             <input class="form-control" autocomplete="off" name="reference" placeholder="Reference" type="text" required>
         </div>

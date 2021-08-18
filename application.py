@@ -208,14 +208,16 @@ def donors():
     if request.method == "POST":
         # Declare variables for each form data entered
         name = request.form.get("name")
+        event = request.form.get("event")
         reference = request.form.get("reference")
         amount = request.form.get("amount")
         date = request.form.get("date")
         user = session['user_id']
+        eid = db.execute("SELECT id FROM events WHERE event = ?", event)
         # check if the post request has the file part
         if 'file' not in request.files:
-            db.execute("INSERT INTO donations (user_id, name, reference, amount, date) VALUES (?, ?, ?, ?, ?)",
-                    user, name, reference, amount, date)
+            db.execute("INSERT INTO donations (event_id, user_id, name, reference, amount, date) VALUES (?, ?, ?, ?, ?)",
+                    eid, user, name, reference, amount, date)
             ocash = db.execute('SELECT cash FROM assets')
             ncash = float(amount) + float(ocash[0]['cash'])
             db.execute('UPDATE assets SET cash = (?)', ncash)
@@ -225,8 +227,8 @@ def donors():
         # If the user does not select a file, the browser submits an
         # empty file without a filename.
         if file.filename == '':
-            db.execute("INSERT INTO donations (user_id, name, reference, amount, date) VALUES (?, ?, ?, ?, ?)",
-                    user, name, reference, amount, date)
+            db.execute("INSERT INTO donations (event_id, user_id, name, reference, amount, date) VALUES (?, ?, ?, ?, ?)",
+                    eid, user, name, reference, amount, date)
             ocash = db.execute('SELECT cash FROM assets')
             ncash = float(amount) + float(ocash[0]['cash'])
             db.execute('UPDATE assets SET cash = ?', ncash)
@@ -235,8 +237,8 @@ def donors():
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-        db.execute("INSERT INTO donations (user_id, name, reference, amount, date, image) VALUES (?, ?, ?, ?, ?, ?)",
-                    user, name, reference, amount, date, imagetobinary(filename))
+        db.execute("INSERT INTO donations (event_id, user_id, name, reference, amount, date, image) VALUES (?, ?, ?, ?, ?, ?)",
+                    eid, user, name, reference, amount, date, imagetobinary(filename))
         ocash = db.execute('SELECT cash FROM assets')
         ncash = float(amount) + float(ocash[0]['cash'])
         db.execute('UPDATE assets SET cash = ?', ncash)
