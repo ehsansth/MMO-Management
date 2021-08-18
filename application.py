@@ -218,7 +218,7 @@ def donors():
         eid = eid[0]["id"]
         # check if the post request has the file part
         if 'file' not in request.files:
-            db.execute("INSERT INTO donations (event_id, user_id, name, reference, amount, date) VALUES (?, ?, ?, ?, ?)",
+            db.execute("INSERT INTO donations (event_id, user_id, name, reference, amount, date) VALUES (?, ?, ?, ?, ?, ?)",
                     eid, user, name, reference, amount, date)
             ocash = db.execute('SELECT cash FROM assets')
             ncash = float(amount) + float(ocash[0]['cash'])
@@ -234,7 +234,7 @@ def donors():
         # If the user does not select a file, the browser submits an
         # empty file without a filename.
         if file.filename == '':
-            db.execute("INSERT INTO donations (event_id, user_id, name, reference, amount, date) VALUES (?, ?, ?, ?, ?)",
+            db.execute("INSERT INTO donations (event_id, user_id, name, reference, amount, date) VALUES (?, ?, ?, ?, ?, ?)",
                     eid, user, name, reference, amount, date)
             ocash = db.execute('SELECT cash FROM assets')
             ncash = float(amount) + float(ocash[0]['cash'])
@@ -248,7 +248,7 @@ def donors():
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-        db.execute("INSERT INTO donations (event_id, user_id, name, reference, amount, date, image) VALUES (?, ?, ?, ?, ?, ?)",
+        db.execute("INSERT INTO donations (event_id, user_id, name, reference, amount, date, image) VALUES (?, ?, ?, ?, ?, ?, ?)",
                     eid, user, name, reference, amount, date, imagetobinary(filename))
         ocash = db.execute('SELECT cash FROM assets')
         ncash = float(amount) + float(ocash[0]['cash'])
