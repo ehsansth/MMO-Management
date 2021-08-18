@@ -215,6 +215,7 @@ def donors():
         date = request.form.get("date")
         user = session['user_id']
         eid = db.execute("SELECT id FROM events WHERE event = ?", event)
+        eid = eid[0]["id"]
         # check if the post request has the file part
         if 'file' not in request.files:
             db.execute("INSERT INTO donations (event_id, user_id, name, reference, amount, date) VALUES (?, ?, ?, ?, ?)",
