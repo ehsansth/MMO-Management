@@ -54,6 +54,7 @@ def index():
         else:
             date = request.form.get("date")
             db.execute("INSERT INTO events (event, date) VALUES (?, ?)", event, date)
+            flash("Event Successfully Created!")
             return redirect("/")
     else:
         name = db.execute('SELECT username FROM users WHERE id = ?', session['user_id'])
@@ -221,6 +222,11 @@ def donors():
             ocash = db.execute('SELECT cash FROM assets')
             ncash = float(amount) + float(ocash[0]['cash'])
             db.execute('UPDATE assets SET cash = (?)', ncash)
+            total = 0.0
+            data = db.execute("SELECT amount FROM donations WHERE event_id = ?", eid)
+                for i in range(len(data)):
+                    total = total + data[i]['amount']
+                db.execute('UPDATE events SET donations = (?) WHERE id = (?)', total, eid)
             flash('Sucessfully recorded (without any file uploads)')
             return redirect("/donors")
         file = request.files['file']
@@ -232,6 +238,10 @@ def donors():
             ocash = db.execute('SELECT cash FROM assets')
             ncash = float(amount) + float(ocash[0]['cash'])
             db.execute('UPDATE assets SET cash = ?', ncash)
+            data = db.execute("SELECT amount FROM donations WHERE event_id = ?", eid)
+                for i in range(len(data)):
+                    total = total + data[i]['amount']
+                db.execute('UPDATE events SET donations = (?) WHERE id = (?)', total, eid)
             flash('Sucessfully recorded. (without any file uploads)')
             return redirect("/donors")
         if file and allowed_file(file.filename):
@@ -242,17 +252,22 @@ def donors():
         ocash = db.execute('SELECT cash FROM assets')
         ncash = float(amount) + float(ocash[0]['cash'])
         db.execute('UPDATE assets SET cash = ?', ncash)
+        data = db.execute("SELECT amount FROM donations WHERE event_id = ?", eid)
+                for i in range(len(data)):
+                    total = total + data[i]['amount']
+                db.execute('UPDATE events SET donations = (?) WHERE id = (?)', total, eid)
         os.remove(f'static/{filename}')
-        falsh('Successfully recorded')
+        flash('Successfully recorded')
         return redirect("/donors")
     else:
+        vent = db.execute("SELECT event FROM events")
         rows = db.execute("SELECT * FROM donations")
         cash = db.execute("SELECT cash FROM assets")
         total = 0.0
         for i in range(len(rows)):
             total = total + int(rows[i]['amount'])
             rows[i]['amount'] = bdt(rows[i]['amount'])
-        return render_template("donors.html", rows=rows, total=bdt(total), cash=bdt(float(cash[0]["cash"])))
+        return render_template("donors.html", vent=vent, rows=rows, total=bdt(total), cash=bdt(float(cash[0]["cash"])))
 
 
 @app.route("/past", methods=["GET", "POST"])
