@@ -224,9 +224,9 @@ def donors():
             db.execute('UPDATE assets SET cash = (?)', ncash)
             total = 0.0
             data = db.execute("SELECT amount FROM donations WHERE event_id = ?", eid)
-                for i in range(len(data)):
-                    total = total + data[i]['amount']
-                db.execute('UPDATE events SET donations = (?) WHERE id = (?)', total, eid)
+            for i in range(len(data)):
+                total = total + data[i]['amount']
+            db.execute('UPDATE events SET donations = (?) WHERE id = (?)', total, eid)
             flash('Sucessfully recorded (without any file uploads)')
             return redirect("/donors")
         file = request.files['file']
@@ -239,9 +239,9 @@ def donors():
             ncash = float(amount) + float(ocash[0]['cash'])
             db.execute('UPDATE assets SET cash = ?', ncash)
             data = db.execute("SELECT amount FROM donations WHERE event_id = ?", eid)
-                for i in range(len(data)):
-                    total = total + data[i]['amount']
-                db.execute('UPDATE events SET donations = (?) WHERE id = (?)', total, eid)
+            for i in range(len(data)):
+                total = total + data[i]['amount']
+            db.execute('UPDATE events SET donations = (?) WHERE id = (?)', total, eid)
             flash('Sucessfully recorded. (without any file uploads)')
             return redirect("/donors")
         if file and allowed_file(file.filename):
@@ -253,9 +253,9 @@ def donors():
         ncash = float(amount) + float(ocash[0]['cash'])
         db.execute('UPDATE assets SET cash = ?', ncash)
         data = db.execute("SELECT amount FROM donations WHERE event_id = ?", eid)
-                for i in range(len(data)):
-                    total = total + data[i]['amount']
-                db.execute('UPDATE events SET donations = (?) WHERE id = (?)', total, eid)
+        for i in range(len(data)):
+            total = total + data[i]['amount']
+        db.execute('UPDATE events SET donations = (?) WHERE id = (?)', total, eid)
         os.remove(f'static/{filename}')
         flash('Successfully recorded')
         return redirect("/donors")
