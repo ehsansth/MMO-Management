@@ -276,7 +276,11 @@ def past():
         events = db.execute("SELECT * FROM events")
         total = 0.0
         for i in range(len(events)):
-            total = total + float(events[i]['total'])
+            if events[i]['total'] == None:
+                events[i]['total'] = 0.0
+                total = total + float(events[i]['total'])
+            else:
+                total = total + float(events[i]['total'])
         total = bdt(total)
         return render_template("past.html", vent=vent, events=events, total=total)
 
