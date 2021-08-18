@@ -263,6 +263,8 @@ def past():
             buff.append(vent[i]['event'])
         if request.form.get('event') in buff:
             rows = db.execute('SELECT * FROM expenses WHERE event = ?', request.form.get("event"))
+            if len(rows) == 0:
+                return apology("No Data Available")
             for i in range(len(rows)):
                 rows[i]['id'] = i + 1
             total = 0.0
