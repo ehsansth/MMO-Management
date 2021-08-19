@@ -28,6 +28,7 @@
                     <th>No.</th>
                     <th>Date</th>
                     <th>Event</th>
+                    <th>(৳)Total Donations</th>
                     <th>(৳)Total Expenses</th>
                 </tr>
             </thead>
@@ -38,6 +39,7 @@
                                 <td>{{ events.id }}</td>
                                 <td>{{ events.date }}</td>
                                 <td>{{ events.event }}</td>
+                                <td>{{ events.donations }}</td>
                                 <td>{{ events.total }}</td>
                             </tr>
                     {% endfor %}
@@ -45,8 +47,11 @@
                         <td></td>
                         <td></td>
                         <td></td>
+                        {% if donations %}
+                            <td><b>{{ donations }}</b></td>
+                        {% endif %}
                         {% if total %}
-                        <td><b>{{ total }}</b></td>
+                            <td><b>{{ total }}</b></td>
                         {% endif %}
                     </tr>
             </tbody>

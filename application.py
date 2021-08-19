@@ -304,7 +304,14 @@ def past():
             else:
                 total = total + float(events[i]['total'])
         total = bdt(total)
-        return render_template("past.html", vent=vent, events=events, total=total)
+        donations = 0.0
+        for j in range(len(events)):
+            if events[j]['donations'] == None:
+                events[j]['donations'] = 0.0
+                total = total + float(events[j]['total'])
+            else:
+                total = total + float(events[j]['total'])
+        return render_template("past.html", vent=vent, events=events, total=total, donations=donations)
 
 
 def errorhandler(e):
