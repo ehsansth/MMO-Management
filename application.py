@@ -308,9 +308,10 @@ def past():
         for j in range(len(events)):
             if events[j]['donations'] == None:
                 events[j]['donations'] = 0.0
-                total = total + float(events[j]['total'])
+                total = total + float(events[j]['donations'])
             else:
-                total = total + float(events[j]['total'])
+                total = total + float(events[j]['donations'])
+        donations = bdt(donations)
         return render_template("past.html", vent=vent, events=events, total=total, donations=donations)
 
 
