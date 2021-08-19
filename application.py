@@ -38,7 +38,7 @@ app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
 # Configure CS50 Library to use SQLite database
-db = SQL(os.getenv("DATABASE_URL"))
+db = SQL("sqlite:///manage.db")
 
 @app.route("/", methods=["GET", "POST"])
 @login_required
@@ -301,7 +301,7 @@ def past():
                 for l in range(len(dows)):
                     dows[l]['don_id'] = l + 1
                 donations = 0.0
-                for m in range(len(rows)):
+                for m in range(len(dows)):
                     donations = donations + float(dows[m]['amount'])
                 return render_template('indepth.html', dows=dows, donations=bdt(donations), event=request.form.get('event'), date=dows[0]['date'])
 
@@ -315,7 +315,7 @@ def past():
                 for l in range(len(dows)):
                     dows[l]['don_id'] = l + 1
                 donations = 0.0
-                for m in range(len(rows)):
+                for m in range(len(dows)):
                     donations = donations + float(dows[m]['amount'])
 
                 return render_template('indepth.html', dows=dows, donations=bdt(donations), rows=rows, total=bdt(total), event=rows[0]['event'], date=rows[0]['date'])
