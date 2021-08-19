@@ -22,6 +22,7 @@
             </thead>
             <tbody>
                 <!-- TODO: Loop through the database entries to display them in this table -->
+                {% if dows %}
                     {% for dows in dows %}
                             <tr>
                                 <td>{{ dows.don_id }}</td>
@@ -30,6 +31,7 @@
                                 <td>{{ rows.amount }}</td>
                             </tr>
                     {% endfor %}
+                {% endif %}
                     <tr>
                         <td></td>
                         <td></td>
@@ -60,24 +62,26 @@
             </thead>
             <tbody>
                 <!-- TODO: Loop through the database entries to display them in this table -->
+                {% if rows %}
                     {% for rows in rows %}
-                            <tr>
-                                <td>{{ rows.id }}</td>
-                                <td>{{ rows.item }}</td>
-                                <td>{{ rows.qty }}</td>
-                                <td>{{ rows.cost }}</td>
-                                <td>{{ rows.amount }}</td>
-                            </tr>
+                        <tr>
+                            <td>{{ rows.id }}</td>
+                            <td>{{ rows.item }}</td>
+                            <td>{{ rows.qty }}</td>
+                            <td>{{ rows.cost }}</td>
+                            <td>{{ rows.amount }}</td>
+                        </tr>
                     {% endfor %}
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        {% if total %}
+                {% endif %}
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    {% if total %}
                         <td><b>{{ total }}</b></td>
-                        {% endif %}
-                    </tr>
+                    {% endif %}
+                </tr>
             </tbody>
         </table>
     </div>
