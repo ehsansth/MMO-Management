@@ -240,6 +240,7 @@ def donors():
             ncash = float(amount) + float(ocash[0]['cash'])
             db.execute('UPDATE assets SET cash = ?', ncash)
             data = db.execute("SELECT amount FROM donations WHERE event_id = ?", eid)
+            total = 0.0
             for i in range(len(data)):
                 total = total + data[i]['amount']
             db.execute('UPDATE events SET donations = (?) WHERE id = (?)', total, eid)
@@ -254,6 +255,7 @@ def donors():
         ncash = float(amount) + float(ocash[0]['cash'])
         db.execute('UPDATE assets SET cash = ?', ncash)
         data = db.execute("SELECT amount FROM donations WHERE event_id = ?", eid)
+        total = 0.0
         for i in range(len(data)):
             total = total + data[i]['amount']
         db.execute('UPDATE events SET donations = (?) WHERE id = (?)', total, eid)
