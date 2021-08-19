@@ -7,6 +7,44 @@
 {% block main %}
     <div class="section">
         <table class="pasttab">
+            <h2><b>Donations</b></h2>
+            <thead>
+                <tr>
+                    <h2>{{ event }}</h2>
+                    <b><h6>{{ date }}</h6></b>
+                </tr>
+                <tr>
+                    <th>No:</th>
+                    <th>Name:</th>
+                    <th>Reference:</th>
+                    <th>(৳)Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- TODO: Loop through the database entries to display them in this table -->
+                    {% for dows in dows %}
+                            <tr>
+                                <td>{{ dows.don_id }}</td>
+                                <td>{{ dows.name }}</td>
+                                <td>{{ rows.reference }}</td>
+                                <td>{{ rows.amount }}</td>
+                            </tr>
+                    {% endfor %}
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        {% if donations %}
+                        <td><b>{{ donations }}</b></td>
+                        {% endif %}
+                    </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <table class="pasttab">
+            <h2><b>Expenses</b></h2>
             <thead>
                 <tr>
                     <h2>{{ event }}</h2>

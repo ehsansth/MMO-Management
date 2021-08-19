@@ -283,14 +283,42 @@ def past():
             buff.append(vent[i]['event'])
         if request.form.get('event') in buff:
             rows = db.execute('SELECT * FROM expenses WHERE event = ?', request.form.get("event"))
-            if len(rows) == 0:
+            event_id = db.execute('SELECT id FROM events WHERE event = ?', request.form.get("event"))
+            event_id = event_id[0]['id']
+            dows = db.execute('SELECT * FROM donations WHERE event_id = ?', event_id)
+            if len(rows) == 0 and len(dows) == 0:
                 return apology("No Data Available")
-            for i in range(len(rows)):
-                rows[i]['id'] = i + 1
-            total = 0.0
-            for j in range(len(rows)):
-                total = total + float(rows[j]['amount'])
-            return render_template('indepth.html', rows=rows, total=bdt(total), event=rows[0]['event'], date=rows[0]['date'])
+
+            if len(rows) != 0 and len(dows) == 0:
+                for j in range(len(rows)):
+                    rows[j]['id'] = j + 1
+                total = 0.0
+                for k in range(len(rows)):
+                    total = total + float(rows[k]['amount'])
+                return render_template('indepth.html', rows=rows, total=bdt(total), event=rows[0]['event'], date=rows[0]['date'])
+
+            elif len(dows) != 0 and len(rows) == 0:
+                for l in range(len(dows)):
+                    dows[l]['don_id'] = l + 1
+                donations = 0.0
+                for m in range(len(rows)):
+                    donations = donations + float(dows[m]['amount'])
+                return render_template('indepth.html', dows=dows, donations=bdt(donations), event=request.form.get('event'), date=dows[0]['date'])
+
+            else:
+                for j in range(len(rows)):
+                    rows[j]['id'] = j + 1
+                total = 0.0
+                for k in range(len(rows)):
+                    total = total + float(rows[k]['amount'])
+
+                for l in range(len(dows)):
+                    dows[l]['don_id'] = l + 1
+                donations = 0.0
+                for m in range(len(rows)):
+                    donations = donations + float(dows[m]['amount'])
+
+                return render_template('indepth.html', dows=dows, donations=bdt(donations), rows=rows, total=bdt(total), event=rows[0]['event'], date=rows[0]['date'])
         else:
             return apology("Invalid Submission")
     else:
